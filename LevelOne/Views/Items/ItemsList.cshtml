@@ -1,0 +1,99 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<LevelOne.Models.Item>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    <div class="form-group">
+        <label class="control-label col-sm-1">Search:</label>
+        <input type="text" name="search" value="@ViewBag.search" placeholder="search" />
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-1">Discount</label>
+        @Html.CheckBox("discount")
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-1">Price</label>
+        <select name="priceorder" value="@ViewBag.priceorder">
+            <option value="">Choose here</option>
+            <option value="Descending">Higher to Lower</option>
+            <option value="Ascending">Lower to Higher</option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Search</button>
+        <button type="reset">Reset</button>
+    </div>
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Category
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Discount
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImgUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("ItemsList", new
+{
+    page,
+    ViewBag.search,
+    ViewBag.priceorder,
+    ViewBag.discount,
+    ViewBag.categoryid
+}))
+</div>

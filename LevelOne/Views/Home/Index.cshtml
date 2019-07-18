@@ -1,0 +1,35 @@
+﻿@model List<LevelOne.Models.Item>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="col-sm-2">
+    <div class="container-fluid">
+        <h3>Categories</h3>
+        @foreach (var category in ViewBag.categories)
+        {
+            <div>
+                @category.Name
+            </div>
+        }
+    </div>
+</div>
+<div class="col-sm-10">
+    <div class="container-fluid" style="padding-top: 20px">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">@item.Name - @item.Price HRK</div>
+                        <div class="panel-body"><img src="~/Images/@item.ImgUrl" class="img-responsive" style="width:100%" alt="Image"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div><br>
+</div>
+
+
+
