@@ -43,6 +43,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">@item.Name - @item.Price HRK</div>
                         <div class="panel-body"><img src="~/Images/@item.ImgUrl" class="img-responsive" style="width:100%" alt="Image"></div>
+                        <div class="panel-footer">@Html.ActionLink("Add To Cart", "AddToCart", "Home", new {item.Id, ViewBag.page, ViewBag.search, ViewBag.priceorder, ViewBag.categoryid}, new { @class = "glyphicon glyphicon-shopping-cart"})</div>
                     </div>
                 </div>
                 if (count == 3)

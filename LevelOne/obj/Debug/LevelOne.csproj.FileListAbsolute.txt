@@ -218,3 +218,4 @@ C:\Users\Denis\source\repos\LevelOneRepo\LevelOne\obj\Debug\LevelOne.dll
 C:\Users\Denis\source\repos\LevelOneRepo\LevelOne\obj\Debug\LevelOne.pdb
 C:\Users\Denis\source\repos\LevelOneRepo\LevelOne\obj\Debug\LevelOne.Migrations.InitialCreate.resources
 C:\Users\Denis\source\repos\LevelOneRepo\LevelOne\obj\Debug\LevelOne.csproj.GenerateResource.cache
+C:\Users\Denis\source\repos\LevelOneRepo\LevelOne\obj\Debug\LevelOne.Migrations.FirstMigration.resources

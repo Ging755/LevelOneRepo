@@ -185,6 +185,10 @@
     <Compile Include="Migrations\201907181031476_InitialCreate.Designer.cs">
       <DependentUpon>201907181031476_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907191030435_FirstMigration.cs" />
+    <Compile Include="Migrations\201907191030435_FirstMigration.Designer.cs">
+      <DependentUpon>201907191030435_FirstMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -264,6 +268,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_CategoryPicker.cshtml" />
     <Content Include="Views\Home\ItemList.cshtml" />
+    <Content Include="Views\Shared\_Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -284,6 +289,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907181031476_InitialCreate.resx">
       <DependentUpon>201907181031476_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907191030435_FirstMigration.resx">
+      <DependentUpon>201907191030435_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

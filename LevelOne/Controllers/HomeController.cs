@@ -18,13 +18,14 @@ namespace LevelOne.Controllers
             ViewBag.categories = db.Categories.ToList();
             var Items = db.Items.Where(x => x.Discount == true).AsQueryable();
             var count = Items.Count();
-            if(count < 6)
+            if (count < 6)
             {
                 return View(Items.ToList());
             }
-            else{
+            else
+            {
                 Random rand = new Random();
-                var number = rand.Next(1, (count-6) + 1);
+                var number = rand.Next(1, (count - 6) + 1);
                 Items = Items.OrderByDescending(x => x.Id).Skip(number).Take(6).AsQueryable();
             }
             return View(Items.ToList());
@@ -33,6 +34,7 @@ namespace LevelOne.Controllers
         public async Task<ActionResult> ItemList(int? page, string search, string priceorder, int categoryid)
         {
             page = page ?? 1;
+            ViewBag.oave = page;
             ViewBag.search = search;
             ViewBag.priceorder = priceorder;
             ViewBag.categoryid = categoryid;
@@ -65,10 +67,37 @@ namespace LevelOne.Controllers
             return View(new StaticPagedList<Item>(model, model.GetMetaData()));
         }
 
+        public async Task<ActionResult> AddToCart(int? id, int? page, string search, string priceorder, int? categoryid)
+        {
+            var item = db.Items.Find(id);
+            IEnumerable<Item> ItemList = new List<Item>();
+            if (Session["products"] == null)
+            {
+                ItemList.ToList().Add(item);
+                Session["products"] = ItemList;
+            }
+            else
+            {
+                ItemList = Session["products"] as IEnumerable<Item>;
+                ItemList.ToList().Add(item);
+                Session["products"] = ItemList;
+            }
+            if(categoryid == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("ItemList", new { page = page, search = search, priceorder = priceorder, categoryid = categoryid });
+        }
+
         public async Task<ActionResult> CategoryPicker()
         {
             var categories = db.Categories.ToList();
             return PartialView("_CategoryPicker", categories);
+        }
+
+        public async Task<ActionResult> Cart()
+        {
+            return View();
         }
     }
 }
