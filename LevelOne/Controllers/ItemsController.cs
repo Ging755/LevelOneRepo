@@ -19,19 +19,14 @@ namespace LevelOne.Controllers
         private WebShopContext db = new WebShopContext();
 
         // GET: Items
-        public async Task<ActionResult> ItemsList(int? page, string search, string priceorder, string discount, int? categoryid)
+        public async Task<ActionResult> ItemsList(int? page, string search, string priceorder, string discount)
         {
             page = page ?? 1;
             ViewBag.search = search;
             ViewBag.priceorder = priceorder;
             ViewBag.discount = discount;
-            ViewBag.categoryid = categoryid;
             var items = db.Items.AsQueryable();
             IPagedList<Item> model;
-            if (categoryid != null)
-            {
-                items = items.Where(x => x.CategoryId == categoryid).AsQueryable();
-            }
             if (!string.IsNullOrEmpty(search))
             {
                 items = items.Where(x => x.Name.ToUpper().Contains(search.ToUpper())).AsQueryable();
@@ -52,16 +47,16 @@ namespace LevelOne.Controllers
                 switch (priceorder.ToUpper())
                 {
                     case "ASCENDING":
-                        items = items.OrderBy(x => x.Price);
+                        items = items.OrderBy(x => x.Price).AsQueryable();
                         break;
                     case "DESCENDING":
-                        items = items.OrderByDescending(x => x.Price);
+                        items = items.OrderByDescending(x => x.Price).AsQueryable();
                         break;
                     default:
                         model = items.OrderByDescending(x => x.Id).ToPagedList((int)page, 3);
                         break;
                 }
-                model = items.OrderByDescending(x => x.Id).ToPagedList((int)page, 3);
+                model = items.ToPagedList((int)page, 6);
             }
             else
             {

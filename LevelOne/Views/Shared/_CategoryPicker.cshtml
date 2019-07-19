@@ -1,0 +1,10 @@
+﻿@model List<LevelOne.Models.Category>
+
+
+<div class="container-fluid">
+    <h3>Categories</h3>
+    @foreach(var category in Model)
+    {
+        <h2>@Html.ActionLink(category.Name, "ItemList", "Home", new { categoryid = category.Id}, null)</h2>
+    }
+</div>

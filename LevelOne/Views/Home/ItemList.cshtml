@@ -1,0 +1,64 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<LevelOne.Models.Item>
+
+@{ 
+    int count = 0;
+}
+<div class="col-sm-2">
+    @Html.Action("CategoryPicker");
+</div>
+
+<div class="col-sm-10">
+    <div class="container-fluid" style="padding-top: 20px">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken();
+            <div class="form-group">
+                <label class="control-label col-sm-1">Search:</label>
+                <input type="text" name="search" value="@ViewBag.search" placeholder="search" />
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-1">Price</label>
+                <select name="priceorder" value="@ViewBag.priceorder">
+                    <option value="">Choose here</option>
+                    <option value="Descending">Higher to Lower</option>
+                    <option value="Ascending">Lower to Higher</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">Search</button>
+                <button type="reset">Reset</button>
+            </div>
+        }
+        @foreach (var item in Model)
+        {
+            if (count == 0)
+            {
+                count++;
+                @:<div class="row">
+                }
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">@item.Name - @item.Price HRK</div>
+                        <div class="panel-body"><img src="~/Images/@item.ImgUrl" class="img-responsive" style="width:100%" alt="Image"></div>
+                    </div>
+                </div>
+                if (count == 3)
+                {
+                    count = 0;
+                @:</div>
+            }
+        }
+    </div><br />
+    <div>
+        @Html.PagedListPager(Model, page => Url.Action("ItemList", new
+    {
+        page,
+        ViewBag.search,
+        ViewBag.priceorder,
+        ViewBag.categoryid
+    }))
+    </div>
+</div>
