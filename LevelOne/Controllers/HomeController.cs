@@ -69,17 +69,17 @@ namespace LevelOne.Controllers
 
         public async Task<ActionResult> AddToCart(int? id, int? page, string search, string priceorder, int? categoryid)
         {
-            var item = db.Items.Find(id);
-            IEnumerable<Item> ItemList = new List<Item>();
+            Item item = db.Items.Where(x => x.Id == id).FirstOrDefault();
+            List<Item> ItemList = new List<Item>();
             if (Session["products"] == null)
             {
-                ItemList.ToList().Add(item);
+                ItemList.Add(item);
                 Session["products"] = ItemList;
             }
             else
             {
-                ItemList = Session["products"] as IEnumerable<Item>;
-                ItemList.ToList().Add(item);
+                ItemList = Session["products"] as List<Item>;
+                ItemList.Add(item);
                 Session["products"] = ItemList;
             }
             if(categoryid == null)
@@ -97,7 +97,24 @@ namespace LevelOne.Controllers
 
         public async Task<ActionResult> Cart()
         {
-            return View();
+            var items = Session["products"] as List<Item>;
+            if(items != null){
+                decimal totalprice = 0;
+                foreach (var x in items)
+                {
+                    totalprice += x.Price;
+                }
+                ViewBag.totalprice = totalprice;
+            }
+            return View(items);
+        }
+        
+        public async Task<ActionResult> RemoveFromCart(int? id)
+        {
+            var items = Session["products"] as List<Item>;
+            items.Remove(items.Where(x => x.Id == id).FirstOrDefault());
+            Session["products"] = items;
+            return RedirectToAction("Cart");
         }
     }
 }

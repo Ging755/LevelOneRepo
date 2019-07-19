@@ -1,0 +1,72 @@
+﻿@model IEnumerable<LevelOne.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RecipientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecipientSurname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecipientAdress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecipientZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecipientEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecipientPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderReciveTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderSent)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr @if (item.OrderSent == false) { Html.Raw("class='danger'"); }>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipientName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipientSurname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipientAdress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipientZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipientEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipientPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderReciveTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderSent)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
